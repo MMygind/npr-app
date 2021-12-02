@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Transaktionshistorik
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="ion-margin">
+
+  <ion-virtual-scroll [items]="dataSource?.items" [approxItemHeight]="'88px'">
+    <ion-card *virtualItem="let transaction">
+      <ion-item text-capitalize>
+        <h2>{{transaction.location.name}} - {{transaction.washType.name}} - {{transaction.washType.price}} kr.</h2>
+      </ion-item>
+    </ion-card>
+
+  </ion-virtual-scroll>
+
+
+
+</ion-content>
