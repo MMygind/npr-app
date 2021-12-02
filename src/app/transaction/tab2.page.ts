@@ -11,7 +11,8 @@ import {map} from 'rxjs/operators';
 export class Tab2Page implements OnInit{
 
   dataSource: TransactionData | undefined;
-  page = 0;
+  newItems: TransactionData | undefined;
+  page = 1;
 
   constructor(private transactionService: TransactionService) {}
 
@@ -19,23 +20,31 @@ export class Tab2Page implements OnInit{
     this.getAllTransactions();
   }
 
-  private getAllTransactions(infiniteScroll?): void {
-    this.transactionService.getAllTransactions(1, 5).pipe(map((transactionData: TransactionData) => this.dataSource = transactionData)).subscribe();
-
-    if (infiniteScroll) {
-      infiniteScroll.target.complete();
-    }
+  private getAllTransactions(): void {
+    this.transactionService.getAllTransactions(1, 10).pipe(map((transactionData: TransactionData) => this.dataSource = transactionData)).subscribe();
   }
 
-  //WORK IN PROGRESS, IGNORER INDTIL VIDERE
-  public loadMore(infiniteScroll) {
+  public loadData(event) {
     this.page ++;
     const maximumPages = this.dataSource.meta.totalPages;
-    this.getAllTransactions(infiniteScroll);
+
+    const items = this.dataSource.items;
+    this.transactionService.getAllTransactions(this.page, 10).pipe(map((transactionData: TransactionData) => this.newItems = transactionData)).subscribe();
+
 
     if (this.page === maximumPages) {
-      infiniteScroll.target.disabled = true;
+      event.target.disabled = true;
     }
+    setTimeout(() => {
+      console.log('Done');
+
+      [].push.apply(items, this.newItems.items);
+
+      console.log(items);
+      this.dataSource.items = items;
+      console.log(this.dataSource.items);
+      event.target.complete();
+    }, 500);
   }
 
 }

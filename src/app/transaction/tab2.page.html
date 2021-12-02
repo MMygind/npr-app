@@ -6,19 +6,22 @@
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content class="ion-margin">
 
-  <ion-virtual-scroll [items]="dataSource?.items" [approxItemHeight]="'88px'">
-    <ion-card *virtualItem="let transaction">
-      <ion-item text-capitalize>
-        <h2>{{transaction.location.name}} - {{transaction.washType.name}} - {{transaction.washType.price}} kr.</h2>
-      </ion-item>
+  <ion-list>
+    <ion-card *ngFor="let transaction of dataSource?.items">
+      <ion-card-header>
+        <ion-card-title>{{transaction.location.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{transaction.washType.name}} - {{transaction.washType.price}} kr.</ion-card-content>
     </ion-card>
+  </ion-list>
 
-  </ion-virtual-scroll>
-
-
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
