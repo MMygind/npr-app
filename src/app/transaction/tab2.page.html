@@ -13,7 +13,7 @@
       <ion-card-header>
         <ion-card-title>{{transaction.location.name}}</ion-card-title>
       </ion-card-header>
-      <ion-card-content>{{transaction.washType.name}} - {{transaction.washType.price}} kr.</ion-card-content>
+      <ion-card-content>{{transaction.washType.name}} - {{transaction.washType.price}} kr. - {{getDateWithFormat(transaction.timestamp)}}</ion-card-content>
     </ion-card>
   </ion-list>
 

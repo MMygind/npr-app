@@ -20,6 +20,6 @@ export class TransactionService {
     params = params.append('page', String(page));
     params = params.append('limit,', String(size));
 
-    return this.http.get<TransactionData>(this.transactionUrl, {params});
+    return this.http.get<TransactionData>(this.transactionUrl + '/byUser', {params});
   }
 }

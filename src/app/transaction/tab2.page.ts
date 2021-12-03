@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TransactionData} from '../shared/models/transaction.model';
 import {TransactionService} from '../shared/services/transaction.service';
 import {map} from 'rxjs/operators';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-tab2',
@@ -14,7 +15,7 @@ export class Tab2Page implements OnInit{
   newItems: TransactionData | undefined;
   page = 1;
 
-  constructor(private transactionService: TransactionService) {}
+  constructor(private transactionService: TransactionService, private datePipe: DatePipe) {}
 
   ngOnInit(): void {
     this.getAllTransactions();
@@ -39,12 +40,20 @@ export class Tab2Page implements OnInit{
       console.log('Done');
 
       [].push.apply(items, this.newItems.items);
-
-      console.log(items);
       this.dataSource.items = items;
-      console.log(this.dataSource.items);
       event.target.complete();
     }, 500);
+  }
+
+  public getDateWithFormat(date: Date): string {
+    const dateWithFormat = this.datePipe.transform(date, 'dd-MM-yyyy');
+
+    if(dateWithFormat != null) {
+      return dateWithFormat;
+    }
+    else {
+      return '';
+    }
   }
 
 }
