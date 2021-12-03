@@ -6,10 +6,10 @@ import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  templateUrl: 'transaction.page.html',
+  styleUrls: ['transaction.page.scss']
 })
-export class Tab2Page implements OnInit{
+export class TransactionPage implements OnInit{
 
   dataSource: TransactionData | undefined;
   newItems: TransactionData | undefined;

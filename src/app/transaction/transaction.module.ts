@@ -3,10 +3,9 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './tab2.page';
+import { TransactionPage } from './transaction.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-
-import { Tab2PageRoutingModule } from './tab2-routing.module';
+import {TransactionRoutingModule} from './transaction-routing.module';
 
 @NgModule({
   providers: [DatePipe],
@@ -15,9 +14,9 @@ import { Tab2PageRoutingModule } from './tab2-routing.module';
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab2PageRoutingModule,
+    TransactionRoutingModule,
 
   ],
-  declarations: [Tab2Page]
+  declarations: [TransactionPage]
 })
-export class Tab2PageModule {}
+export class TransactionModule {}
