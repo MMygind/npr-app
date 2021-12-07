@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Transaktionshistorik
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-margin">
+
+  <ion-list>
+    <ion-card *ngFor="let transaction of dataSource?.items">
+      <ion-card-header>
+        <ion-card-title>{{transaction.location.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>{{transaction.washType.name}} - {{transaction.washType.price}} kr. - {{getDateWithFormat(transaction.timestamp)}}</ion-card-content>
+    </ion-card>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
