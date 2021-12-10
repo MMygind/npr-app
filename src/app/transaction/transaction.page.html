@@ -6,7 +6,13 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-margin">
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="scrollToTop()">
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <ion-list>
     <ion-card *ngFor="let transaction of dataSource?.items">
