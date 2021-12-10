@@ -1,0 +1,22 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Bilvask
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-margin">
+
+  <ion-list>
+    <ion-card *ngFor="let location of locations">
+      <ion-card-header>
+        <ion-card-title>{{location.name}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{location.address}}, {{location.postalCode}} {{location.city}}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+
+</ion-content>
