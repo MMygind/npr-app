@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Profil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Navn: {{loggedInUser.name}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Email: {{loggedInUser.email}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Tlf: {{loggedInUser.phoneNumber}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Abonnement: {{loggedInUser.subscription.name}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

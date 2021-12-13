@@ -18,7 +18,7 @@ export class TransactionService {
     let params = new HttpParams();
 
     params = params.append('page', String(page));
-    params = params.append('limit,', String(size));
+    params = params.append('limit', String(size));
 
     return this.http.get<TransactionData>(this.transactionUrl + '/byUser', {params});
   }
