@@ -36,15 +36,11 @@ export class WashPage implements OnInit {
     this.selectedLocation = location;
     this.washTypeService.getLocationWashTypes(this.selectedLocation.id)
       .subscribe((washTypes) => this.washTypes = washTypes);
-    this.gotoSlide(slides, index);
+    slides.slideTo(index);
   }
 
   public selectWashType(washType: WashType, slides: IonSlides, index: number) {
     this.selectedWashType = washType;
-    this.gotoSlide(slides, index);
-  }
-
-  public gotoSlide(slides: IonSlides, index: number) {
     slides.slideTo(index);
   }
 }

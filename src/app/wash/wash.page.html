@@ -12,8 +12,7 @@
 
     <ion-slide>
       <ion-list>
-        <ion-card [ngClass]="{'selected': location.id === selectedLocation?.id}"
-                  (click)="selectLocation(location, slides, 1)" *ngFor="let location of locations">
+        <ion-card (click)="selectLocation(location, slides, 1)" *ngFor="let location of locations">
           <ion-card-header>
             <ion-card-title>{{location.name}}</ion-card-title>
           </ion-card-header>
@@ -22,14 +21,12 @@
           </ion-card-content>
         </ion-card>
       </ion-list>
-      <ion-button *ngIf="selectedLocation" (click)="gotoSlide(slides, 1)">Næste</ion-button>
     </ion-slide>
 
     <ion-slide>
       <h1 *ngIf="selectedLocation">Vasketyper på {{selectedLocation.name}}</h1>
       <ion-list>
-        <ion-card [ngClass]="{'selected': washType.id === selectedWashType?.id}"
-                  (click)="selectWashType(washType, slides, 2)" *ngFor="let washType of washTypes">
+        <ion-card (click)="selectWashType(washType, slides, 2)" *ngFor="let washType of washTypes">
           <ion-card-header>
             <ion-card-title>{{washType.name}}</ion-card-title>
           </ion-card-header>
@@ -38,13 +35,10 @@
           </ion-card-content>
         </ion-card>
       </ion-list>
-      <ion-button (click)="gotoSlide(slides, 0)">Tilbage</ion-button>
-      <ion-button *ngIf="selectedWashType" (click)="gotoSlide(slides, 2)">Næste</ion-button>
     </ion-slide>
 
     <ion-slide>
       <h1 *ngIf="selectedWashType">{{selectedWashType.name}}</h1>
-      <ion-button (click)="gotoSlide(slides, 1)">Tilbage</ion-button>
     </ion-slide>
   </ion-slides>
 
