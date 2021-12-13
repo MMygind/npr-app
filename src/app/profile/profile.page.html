@@ -9,25 +9,46 @@
 <ion-content [fullscreen]="true">
   <ion-card *ngIf="loggedInUser">
     <ion-card-header>
-      <ion-card-title>Navn: {{loggedInUser.name}}</ion-card-title>
+      <ion-card-title>Navn</ion-card-title>
     </ion-card-header>
+    <ion-card-content>
+      <h1>{{loggedInUser.name}}</h1>
+    </ion-card-content>
   </ion-card>
 
   <ion-card *ngIf="loggedInUser">
     <ion-card-header>
-      <ion-card-title>Email: {{loggedInUser.email}}</ion-card-title>
+      <ion-card-title>Email</ion-card-title>
     </ion-card-header>
+    <ion-card-content>
+      <h1>{{loggedInUser.email}}</h1>
+    </ion-card-content>
   </ion-card>
 
   <ion-card *ngIf="loggedInUser">
     <ion-card-header>
-      <ion-card-title>Tlf: {{loggedInUser.phoneNumber}}</ion-card-title>
+      <ion-card-title>Telefon</ion-card-title>
     </ion-card-header>
+    <ion-card-content>
+      <h1>{{loggedInUser.phoneNumber}}</h1>
+    </ion-card-content>
   </ion-card>
 
   <ion-card *ngIf="loggedInUser">
     <ion-card-header>
-      <ion-card-title>Abonnement: {{loggedInUser.subscription.name}}</ion-card-title>
+      <ion-card-title>Abonnement</ion-card-title>
     </ion-card-header>
+    <ion-card-content>
+      <h1>{{loggedInUser.subscription.name}}</h1>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="plateList.length > 0">
+    <ion-card-header>
+      <ion-card-title>Nummerplader</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let plate of plateList">
+      <h1>{{plate.licensePlate}}</h1>
+    </ion-card-content>
   </ion-card>
 </ion-content>
