@@ -21,16 +21,11 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/wash',
+        redirectTo: '/tabs/tab3',
         pathMatch: 'full'
       }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/tabs/wash',
-    pathMatch: 'full'
-  }
 ];
 
 @NgModule({
