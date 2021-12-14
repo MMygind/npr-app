@@ -42,17 +42,76 @@
         </ng-template>
 
         <ng-template swiperSlide>
-          <h1 *ngIf="selectedWashType">{{selectedWashType.name}}</h1>
+          <ion-card class="center-card">
+            <ion-card-header>
+              <ion-card-title>Betaling med nummerplade</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Vil du betale med din nummerplade?</p>
+              <div class="button-div">
+                <ion-button (click)="payWithPlate()">Ja</ion-button>
+                <ion-button (click)="payWithoutPlate()">Nej</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ng-template>
+
+        <ng-template swiperSlide>
+          <ion-card class="center-card">
+            <ion-card-header>
+              <ion-card-title>Vælg en betalingsmulighed</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <div class="button-div">
+                <ion-button (click)="payWithCard()" class="payment-button">Betal med kort</ion-button>
+                <ion-button (click)="payWithMobile()" class="payment-button">
+                  <ion-icon name="phone-portrait"></ion-icon>MobilePay</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ng-template>
+
+        <ng-template swiperSlide>
+          <ion-spinner *ngIf="waitingForPlateDetection"></ion-spinner>
+          <ion-card *ngIf="noMatchingPlateDetected" class="center-card">
+            <ion-card-header>
+              <ion-card-title>Fejl</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Din nummerplade kunne ikke scannes.
+              Vil du vælge en anden betalingsmulighed?</p>
+              <div class="button-div">
+                <ion-button (click)="payWithPlate()">Prøv igen</ion-button>
+                <ion-button (click)="payWithoutPlate()">Anden betaling</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ng-template>
+
+        <ng-template swiperSlide>
+          <ion-card class="center-card">
+            <ion-card-header>
+              <ion-card-title>Bekræftigelse</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>{{finalTransaction?.location}}
+              {{finalTransaction?.washType?.name}} {{finalTransaction?.purchasePrice}} kr.
+                Betaling via {{paymentMethod}}</p>
+              <div class="button-div">
+                <ion-button (click)="confirmPayment()">Bekræft</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
         </ng-template>
 
       </swiper>
-  <!--
+
   <ion-footer>
     <ion-toolbar>
-      <ion-buttons slot="secondary">
-        <ion-button (click)="abort()">Afbryd</ion-button>
+      <ion-buttons slot="start">
+        <ion-button (click)="abort()" routerLink="/tabs">Afbryd</ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-footer>
--->
+
 </ion-content>
