@@ -7,9 +7,9 @@
 </ion-header>
 
 <ion-content>
-      <ion-slides [options]="slideOpts" #slides >
+      <swiper [config]="slideOpts" #swiper >
 
-        <ion-slide>
+        <ng-template swiperSlide>
           <ion-list>
             <ion-list-header lines="inset">
               <ion-label>Vælg lokation</ion-label>
@@ -23,10 +23,9 @@
               </ion-card-content>
             </ion-card>
           </ion-list>
+        </ng-template>
 
-        </ion-slide>
-
-        <ion-slide>
+        <ng-template swiperSlide>
           <ion-list>
             <ion-list-header lines="inset">
               <ion-label>Vælg vasketype i {{selectedLocation?.name}}</ion-label>
@@ -40,13 +39,13 @@
               </ion-card-content>
             </ion-card>
           </ion-list>
-        </ion-slide>
+        </ng-template>
 
-        <ion-slide>
+        <ng-template swiperSlide>
           <h1 *ngIf="selectedWashType">{{selectedWashType.name}}</h1>
-        </ion-slide>
+        </ng-template>
 
-      </ion-slides>
+      </swiper>
   <!--
   <ion-footer>
     <ion-toolbar>

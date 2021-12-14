@@ -3,7 +3,8 @@ import {LocationService} from '../shared/services/location.service';
 import {LocationModel} from '../shared/models/location.model';
 import {WashType} from '../shared/models/washtype.model';
 import {WashTypeService} from '../shared/services/washtype.service';
-import {IonSlides, ViewWillEnter} from '@ionic/angular';
+import {ViewWillEnter} from '@ionic/angular';
+import {SwiperComponent} from 'swiper/angular';
 
 @Component({
   selector: 'app-wash',
@@ -12,7 +13,7 @@ import {IonSlides, ViewWillEnter} from '@ionic/angular';
 })
 export class WashPage implements OnInit, ViewWillEnter {
 
-  @ViewChild('slides') slides: IonSlides;
+  @ViewChild('swiper') swiper: SwiperComponent;
 
   slideOpts = {
     initialSlide: 0,
@@ -42,14 +43,7 @@ export class WashPage implements OnInit, ViewWillEnter {
     this.locationService.getCompanyLocations()
       .subscribe((locations) => {
         this.locations = locations;
-        this.updateSlides();
       });
-  }
-
-  updateSlides() {
-    setTimeout(() => {
-      this.slides.update();
-    }, 5);
   }
 
   public selectLocation(location: LocationModel) {
@@ -57,20 +51,20 @@ export class WashPage implements OnInit, ViewWillEnter {
     this.washTypeService.getLocationWashTypes(this.selectedLocation.id)
       .subscribe((washTypes) => {
         this.washTypes = washTypes;
-        this.slides.slideTo(1);
-        this.updateSlides();
+        this.swiper.swiperRef.slideNext();
       });
   }
 
   public selectWashType(washType: WashType) {
     this.selectedWashType = washType;
-    this.slides.slideNext();
+    this.swiper.swiperRef.slideNext();
   }
 
   public abort() {
     this.selectedLocation = undefined;
     this.selectedWashType = undefined;
-    this.slides.slideTo(0);
+    this.swiper.swiperRef.slideTo(0);
     this.initializeFirstSlide();
   }
+
 }
