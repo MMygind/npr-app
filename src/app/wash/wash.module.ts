@@ -5,13 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { WashPage } from './wash.page';
 
 import { WashRoutingModule } from './wash-routing.module';
+import {SwiperModule} from "swiper/angular";
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    WashRoutingModule
+    WashRoutingModule,
+    SwiperModule,
   ],
   declarations: [WashPage]
 })
