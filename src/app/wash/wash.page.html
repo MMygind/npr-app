@@ -94,8 +94,8 @@
               <ion-card-title>Bekræftigelse</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-              <p>{{finalTransaction?.location}}
-              {{finalTransaction?.washType?.name}} {{finalTransaction?.purchasePrice}} kr.
+              <p>{{selectedLocation?.name}}
+              {{selectedWashType?.name}} {{selectedWashType?.price}} kr.
                 Betaling via {{paymentMethod}}</p>
               <div class="button-div">
                 <ion-button (click)="confirmPayment()">Bekræft</ion-button>

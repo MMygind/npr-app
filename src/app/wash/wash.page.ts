@@ -5,8 +5,10 @@ import {WashType} from '../shared/models/washtype.model';
 import {WashTypeService} from '../shared/services/washtype.service';
 import {ViewWillEnter} from '@ionic/angular';
 import {SwiperComponent} from 'swiper/angular';
-import {Transaction} from "../shared/models/transaction.model";
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {TransactionService} from '../shared/services/transaction.service';
+import {LicensePlate} from '../shared/models/licenseplate.model';
+import {CreateTransactionDto} from '../shared/dtos/create-transaction.dto';
 
 @Component({
   selector: 'app-wash',
@@ -23,7 +25,6 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   readonly CHECK_PLATE_SLIDE: number = 4;
   readonly CONFIRMATION_SLIDE: number = 5;
 
-
   @ViewChild('swiper') swiper: SwiperComponent;
 
   slideOpts = {
@@ -37,13 +38,14 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   selectedLocation: LocationModel;
   washTypes: WashType[];
   selectedWashType: WashType;
-  finalTransaction: Transaction;
   paymentMethod: string;
   waitingForPlateDetection = false;
   noMatchingPlateDetected = false;
+  foundLicensePlate: LicensePlate;
 
   constructor(private locationService: LocationService,
               private washTypeService: WashTypeService,
+              private transactionService: TransactionService,
               private router: Router) {
   }
 
@@ -85,7 +87,7 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   public abort() {
     this.selectedLocation = undefined;
     this.selectedWashType = undefined;
-    this.finalTransaction = undefined;
+    this.foundLicensePlate = undefined;
     this.paymentMethod = undefined;
     this.waitingForPlateDetection = false;
     this.noMatchingPlateDetected = false;
@@ -96,7 +98,18 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   payWithPlate() {
     this.waitingForPlateDetection = true;
     this.swiper.swiperRef.slideTo(this.CHECK_PLATE_SLIDE);
-    this.paymentMethod = 'nummerplade';
+    this.transactionService.getMatchingPlateAtLocation(this.selectedLocation.id)
+      .subscribe((plate) => {
+        this.waitingForPlateDetection = false;
+        if (plate) {
+          this.foundLicensePlate = plate;
+          this.paymentMethod = `nummerplade ${plate.licensePlate}`;
+          this.swiper.swiperRef.slideTo(this.CONFIRMATION_SLIDE);
+        } else {
+          this.noMatchingPlateDetected = true;
+          this.swiper.updateSwiper({});
+        }
+    });
   }
 
   payWithoutPlate() {
@@ -114,7 +127,14 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   }
 
   confirmPayment() {
-    this.abort();
-    this.router.navigate(['tabs']);
+    const dto: CreateTransactionDto = {
+      washType: this.selectedWashType,
+      location: this.selectedLocation,
+    };
+    dto.licensePlate = this.foundLicensePlate ?? undefined;
+    this.transactionService.createTransaction(dto).subscribe((transaction) => {
+      this.abort();
+      this.router.navigate(['tabs']);
+    });
   }
 }
