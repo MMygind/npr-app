@@ -85,6 +85,10 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   public abort() {
     this.selectedLocation = undefined;
     this.selectedWashType = undefined;
+    this.finalTransaction = undefined;
+    this.paymentMethod = undefined;
+    this.waitingForPlateDetection = false;
+    this.noMatchingPlateDetected = false;
     this.swiper.swiperRef.slideTo(this.LOCATION_SLIDE);
     this.initializeFirstSlide();
   }
@@ -92,6 +96,7 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   payWithPlate() {
     this.waitingForPlateDetection = true;
     this.swiper.swiperRef.slideTo(this.CHECK_PLATE_SLIDE);
+    this.paymentMethod = 'nummerplade';
   }
 
   payWithoutPlate() {
