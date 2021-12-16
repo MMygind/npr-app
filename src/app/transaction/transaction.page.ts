@@ -3,7 +3,7 @@ import {TransactionData} from '../shared/models/transaction.model';
 import {TransactionService} from '../shared/services/transaction.service';
 import {map} from 'rxjs/operators';
 import {DatePipe} from '@angular/common';
-import {IonContent} from "@ionic/angular";
+import {IonContent, ViewWillEnter} from "@ionic/angular";
 
 
 @Component({
@@ -11,7 +11,7 @@ import {IonContent} from "@ionic/angular";
   templateUrl: 'transaction.page.html',
   styleUrls: ['transaction.page.scss']
 })
-export class TransactionPage implements OnInit {
+export class TransactionPage implements OnInit, ViewWillEnter {
 
   @ViewChild(IonContent) content: IonContent;
 
@@ -25,8 +25,13 @@ export class TransactionPage implements OnInit {
     this.getAllTransactions();
   }
 
+  ionViewWillEnter(): void {
+    this.getAllTransactions();
+  }
+
   private getAllTransactions(): void {
-    this.transactionService.getAllTransactions(1, 10).pipe(map((transactionData: TransactionData) => this.dataSource = transactionData)).subscribe();
+    this.transactionService.getAllTransactions(1, 10).pipe(
+      map((transactionData: TransactionData) => this.dataSource = transactionData)).subscribe();
   }
 
   public scrollToTop() {

@@ -29,7 +29,7 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
 
   slideOpts = {
     initialSlide: 0,
-    speed: 400,
+    speed: 1,
     allowTouchMove: false,
     autoHeight: true,
   };
@@ -60,7 +60,7 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
   }
 
   ionViewWillEnter(): void {
-    this.abort();
+    this.reset();
   }
 
   initializeFirstSlide() {
@@ -84,7 +84,7 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
     this.swiper.swiperRef.slideTo(this.PAYMENT_METHOD_SLIDE);
   }
 
-  public abort() {
+  public reset() {
     this.selectedLocation = undefined;
     this.selectedWashType = undefined;
     this.foundLicensePlate = undefined;
@@ -133,7 +133,7 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
     };
     dto.licensePlate = this.foundLicensePlate ?? undefined;
     this.transactionService.createTransaction(dto).subscribe((transaction) => {
-      this.abort();
+      this.reset();
       this.router.navigate(['tabs']);
     });
   }
