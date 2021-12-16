@@ -16,7 +16,7 @@ import {CreateTransactionDto} from '../shared/dtos/create-transaction.dto';
   styleUrls: ['wash.page.scss'],
   // encapsulation: ViewEncapsulation.None,
 })
-export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
+export class WashPage implements OnInit, ViewWillEnter {
 
   readonly LOCATION_SLIDE: number = 0;
   readonly WASHTYPE_SLIDE: number = 1;
@@ -51,12 +51,6 @@ export class WashPage implements OnInit, AfterContentChecked, ViewWillEnter {
 
   ngOnInit(): void {
     this.initializeFirstSlide();
-  }
-
-  ngAfterContentChecked(): void {
-    if (this.swiper) {
-      this.swiper.updateSwiper({});
-    }
   }
 
   ionViewWillEnter(): void {
