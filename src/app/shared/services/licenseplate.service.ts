@@ -14,7 +14,6 @@ export class LicensePlateService {
   }
 
   createLicensePlate(licensePlate: LicensePlate): Observable<LicensePlate> {
-    console.log(licensePlate.licensePlate + licensePlate.customer.name);
     return this.http.post<LicensePlate>(this.plateUrl, licensePlate);
   }
 }

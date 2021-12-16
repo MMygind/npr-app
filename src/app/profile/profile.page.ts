@@ -30,7 +30,6 @@ export class ProfilePage implements OnInit {
     this.customerService.getCustomerById(1).subscribe(customer => {
       this.loggedInUser = customer;
       this.plateList = JSON.parse(JSON.stringify(customer.licensePlates));
-      console.log(JSON.stringify(customer.licensePlates));
     });
   }
 
@@ -48,9 +47,6 @@ export class ProfilePage implements OnInit {
     this.licensePlateService.createLicensePlate(plateToReturn).subscribe();
     this.plateList.push(this.plateForm.value);
     this.plateForm.reset();
-    console.log(this.plateForm.value);
-    console.log(plateToReturn);
-    console.log(this.loggedInUser);
   }
 
   get errorControl() {
