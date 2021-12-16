@@ -91,7 +91,7 @@
         <ng-template swiperSlide>
           <ion-card class="center-card">
             <ion-card-header>
-              <ion-card-title>Bekræftigelse</ion-card-title>
+              <ion-card-title>Bekræft vask</ion-card-title>
             </ion-card-header>
             <ion-card-content>
               <p>{{selectedLocation?.name}}
@@ -99,6 +99,21 @@
                 Betaling via {{paymentMethod}}</p>
               <div class="button-div">
                 <ion-button (click)="confirmPayment()">Bekræft</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ng-template>
+
+        <ng-template swiperSlide>
+          <ion-card class="center-card">
+            <ion-card-header>
+              <ion-card-title>Køb gennemført</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Transaktionen er gennemført med succes.
+              Vasken går nu i gang.</p>
+              <div class="button-div">
+                <ion-button (click)="endFlow()">Færdig</ion-button>
               </div>
             </ion-card-content>
           </ion-card>

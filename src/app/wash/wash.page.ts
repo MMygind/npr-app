@@ -24,6 +24,7 @@ export class WashPage implements OnInit, ViewWillEnter {
   readonly OTHER_PAYMENT_SLIDE: number = 3;
   readonly CHECK_PLATE_SLIDE: number = 4;
   readonly CONFIRMATION_SLIDE: number = 5;
+  readonly END_SLIDE: number = 6;
 
   @ViewChild('swiper') swiper: SwiperComponent;
 
@@ -64,7 +65,7 @@ export class WashPage implements OnInit, ViewWillEnter {
       });
   }
 
-  public selectLocation(location: LocationModel) {
+  selectLocation(location: LocationModel) {
     this.selectedLocation = location;
     this.washTypeService.getLocationWashTypes(this.selectedLocation.id)
       .subscribe((washTypes) => {
@@ -73,12 +74,12 @@ export class WashPage implements OnInit, ViewWillEnter {
       });
   }
 
-  public selectWashType(washType: WashType) {
+  selectWashType(washType: WashType) {
     this.selectedWashType = washType;
     this.swiper.swiperRef.slideTo(this.PAYMENT_METHOD_SLIDE);
   }
 
-  public reset() {
+  reset() {
     this.selectedLocation = undefined;
     this.selectedWashType = undefined;
     this.foundLicensePlate = undefined;
@@ -127,8 +128,12 @@ export class WashPage implements OnInit, ViewWillEnter {
     };
     dto.licensePlate = this.foundLicensePlate ?? undefined;
     this.transactionService.createTransaction(dto).subscribe((transaction) => {
-      this.reset();
-      this.router.navigate(['tabs']);
+      this.swiper.swiperRef.slideTo(this.END_SLIDE);
     });
+  }
+
+  endFlow() {
+    this.reset();
+    this.router.navigate(['tabs']);
   }
 }
