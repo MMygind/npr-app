@@ -8,12 +8,13 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class LicensePlateService {
-  private plateUrl = environment.backendUrl + 'licenseplates';
+  private plateUrl = environment.backendUrl + 'licensePlates';
 
   constructor(private http: HttpClient) {
   }
 
   createLicensePlate(licensePlate: LicensePlate): Observable<LicensePlate> {
+    console.log(licensePlate.licensePlate + licensePlate.customer.name);
     return this.http.post<LicensePlate>(this.plateUrl, licensePlate);
   }
 }
