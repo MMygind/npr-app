@@ -6,14 +6,23 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-margin">
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="scrollToTop()">
+      <ion-icon name="arrow-up-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
   <ion-list>
     <ion-card *ngFor="let transaction of dataSource?.items">
       <ion-card-header>
         <ion-card-title>{{transaction.location.name}}</ion-card-title>
       </ion-card-header>
-      <ion-card-content>{{transaction.washType.name}} - {{transaction.washType.price}} kr. - {{getDateWithFormat(transaction.timestamp)}}</ion-card-content>
+      <ion-card-content>{{transaction.washType.name}} - {{transaction.purchasePrice}} kr. -
+        {{getDateWithFormat(transaction.timestamp)}}
+        <span *ngIf="transaction.licensePlate"> - {{transaction.licensePlate.licensePlate}}</span>
+      </ion-card-content>
     </ion-card>
   </ion-list>
 

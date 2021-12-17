@@ -1,0 +1,23 @@
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-card {
+  text-align: center;
+}
+
+.button-div {
+  margin-top: 20px;
+}
+
+.payment-button {
+  display: block;
+}
