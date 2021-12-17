@@ -15,7 +15,7 @@ export class ProfilePage implements OnInit {
 
   loggedInUser: Customer | undefined;
   plateList: LicensePlate[];
-  allPlatesList: LicensePlate[];
+  allPlatesList: LicensePlate[] = [];
   plateForm = this.fb.group({
     licensePlate: [null, [Validators.required, Validators.pattern(/^[A-Z]{2}[0-9]{5}$/)]],
   }, {validator: this.uniquePlateValidator.bind(this)});
@@ -40,9 +40,11 @@ export class ProfilePage implements OnInit {
   }
 
   public getAllPlates(): void {
-    this.allPlatesList = [];
     this.licensePlateService.getAllLicensePlates().subscribe(plates => {
-      this.allPlatesList = plates;
+      if (plates)
+      {
+        this.allPlatesList = plates;
+      }
     });
   }
 
