@@ -4,6 +4,7 @@ import {Customer} from '../shared/models/customer.model';
 import {LicensePlate} from '../shared/models/licenseplate.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LicensePlateService} from '../shared/services/licenseplate.service';
+import {SubscriptionService} from '../shared/services/subscription.service';
 
 @Component({
   selector: 'app-tab3',
@@ -19,7 +20,7 @@ export class ProfilePage implements OnInit {
   });
   isSubmitted = false;
 
-  constructor(private customerService: CustomerService, private fb: FormBuilder, private licensePlateService: LicensePlateService) {}
+  constructor(private customerService: CustomerService, private fb: FormBuilder, private licensePlateService: LicensePlateService, private subscriptionService: SubscriptionService) {}
 
   ngOnInit(): void {
     this.getCustomerData();
@@ -44,6 +45,14 @@ export class ProfilePage implements OnInit {
     if (!this.plateForm.valid) {
       return false;
     }
+
+    if (this.loggedInUser.subscription === null) {
+      this.subscriptionService.getSubscription().subscribe(subscription => {
+        this.loggedInUser.subscription = subscription;
+        this.customerService.updateCustomer(this.loggedInUser).subscribe();
+      });
+    }
+
     this.licensePlateService.createLicensePlate(plateToReturn).subscribe();
     this.plateList.push(this.plateForm.value);
     this.plateForm.reset();

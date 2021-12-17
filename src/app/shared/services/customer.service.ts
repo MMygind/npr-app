@@ -18,5 +18,9 @@ export class CustomerService {
     return this.http.get<Customer>(this.customerUrl + '/1'); //Hard coded ID so far
   }
 
+  updateCustomer(customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(this.customerUrl, customer);
+  }
+
 
 }
