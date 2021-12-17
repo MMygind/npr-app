@@ -1,12 +1,15 @@
 import {LicensePlate} from './licenseplate.model';
 import {WashType} from './washtype.model';
 import {LocationModel} from './location.model';
+import {Customer} from './customer.model';
 
 export interface Transaction {
   id?: number;
   washType: WashType;
   location: LocationModel;
-  licensePlate: LicensePlate;
+  licensePlate?: LicensePlate;
+  customer: Customer;
+  purchasePrice: number;
   timestamp: Date;
   imageURL: string;
 }
