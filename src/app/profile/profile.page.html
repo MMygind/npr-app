@@ -61,6 +61,9 @@
       <span class="error ion-padding" *ngIf="isSubmitted && errorControl.licensePlate.errors?.pattern">
         Nummerplade skal være i korrekt format, fx 'AB12345'
       </span>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.licensePlate.errors?.duplicate">
+        Nummerplade eksisterer allerede
+      </span>
     <ion-button type="submit" color="danger" expand="block">
       Tilføj
     </ion-button>

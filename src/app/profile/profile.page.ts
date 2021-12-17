@@ -15,15 +15,20 @@ export class ProfilePage implements OnInit {
 
   loggedInUser: Customer | undefined;
   plateList: LicensePlate[];
+  allPlatesList: LicensePlate[];
   plateForm = this.fb.group({
     licensePlate: [null, [Validators.required, Validators.pattern(/^[A-Z]{2}[0-9]{5}$/)]],
-  });
+  }, {validator: this.uniquePlateValidator.bind(this)});
   isSubmitted = false;
 
-  constructor(private customerService: CustomerService, private fb: FormBuilder, private licensePlateService: LicensePlateService, private subscriptionService: SubscriptionService) {}
+  constructor(private customerService: CustomerService,
+              private fb: FormBuilder,
+              private licensePlateService: LicensePlateService,
+              private subscriptionService: SubscriptionService) {}
 
   ngOnInit(): void {
     this.getCustomerData();
+    this.getAllPlates();
   }
 
   public getCustomerData(): void {
@@ -31,6 +36,13 @@ export class ProfilePage implements OnInit {
     this.customerService.getCustomerById(1).subscribe(customer => {
       this.loggedInUser = customer;
       this.plateList = JSON.parse(JSON.stringify(customer.licensePlates));
+    });
+  }
+
+  public getAllPlates(): void {
+    this.allPlatesList = [];
+    this.licensePlateService.getAllLicensePlates().subscribe(plates => {
+      this.allPlatesList = plates;
     });
   }
 
@@ -54,8 +66,23 @@ export class ProfilePage implements OnInit {
     }
 
     this.licensePlateService.createLicensePlate(plateToReturn).subscribe();
-    this.plateList.push(this.plateForm.value);
+    this.plateList.push(this.plateForm.value); //Plate added to list to show the user
+    this.allPlatesList.push(this.plateForm.value); //Plate added to list with all plates for unique validation
     this.plateForm.reset();
+  }
+
+  private uniquePlateValidator(control: FormControl) {
+    this.isSubmitted = true;
+    if (this.allPlatesList)
+    {
+      this.allPlatesList.forEach(plate => {
+        if (plate.licensePlate === this.plateForm.value.licensePlate) {
+          control.get('licensePlate').setErrors({duplicate: true});
+        } else {
+          return null;
+        }
+      });
+    }
   }
 
   get errorControl() {

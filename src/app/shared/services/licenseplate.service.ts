@@ -13,6 +13,10 @@ export class LicensePlateService {
   constructor(private http: HttpClient) {
   }
 
+  getAllLicensePlates(): Observable<LicensePlate[]> {
+    return this.http.get<LicensePlate[]>(this.plateUrl);
+  }
+
   createLicensePlate(licensePlate: LicensePlate): Observable<LicensePlate> {
     return this.http.post<LicensePlate>(this.plateUrl, licensePlate);
   }
