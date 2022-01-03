@@ -43,8 +43,7 @@ export class SignUpPage implements OnInit {
         active: true,
         companyId: environment.companyId,
       };
-      console.log(customer);
-      return this.customerService.registerNewCustomer(customer);
+      return this.customerService.registerNewCustomer(customer).subscribe();
     }
   }
 }

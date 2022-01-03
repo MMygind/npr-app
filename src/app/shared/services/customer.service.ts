@@ -12,6 +12,6 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   registerNewCustomer(customer: CreateCustomerDto) {
-    return this.http.post(this.authenticationUrl + '/register', customer);
+    return this.http.post<CreateCustomerDto>(this.authenticationUrl + '/register', customer);
   }
 }
