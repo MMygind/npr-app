@@ -1,4 +1,5 @@
 import {Subscription} from './subscription.model';
+import {LicensePlate} from './licenseplate.model';
 
 export interface Customer {
   id?: number;
@@ -7,6 +8,6 @@ export interface Customer {
   creationDate: Date;
   phoneNumber: string;
   subscription: Subscription;
-  licensePlates: string[];
+  licensePlates: LicensePlate[];
   active: boolean;
 }

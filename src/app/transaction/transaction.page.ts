@@ -1,15 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {TransactionData} from '../shared/models/transaction.model';
 import {TransactionService} from '../shared/services/transaction.service';
 import {map} from 'rxjs/operators';
 import {DatePipe} from '@angular/common';
+import {IonContent, ViewWillEnter} from "@ionic/angular";
+
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'transaction.page.html',
   styleUrls: ['transaction.page.scss']
 })
-export class TransactionPage implements OnInit{
+export class TransactionPage implements OnInit, ViewWillEnter {
+
+  @ViewChild(IonContent) content: IonContent;
 
   dataSource: TransactionData | undefined;
   newItems: TransactionData | undefined;
@@ -21,8 +25,17 @@ export class TransactionPage implements OnInit{
     this.getAllTransactions();
   }
 
+  ionViewWillEnter(): void {
+    this.getAllTransactions();
+  }
+
   private getAllTransactions(): void {
-    this.transactionService.getAllTransactions(1, 10).pipe(map((transactionData: TransactionData) => this.dataSource = transactionData)).subscribe();
+    this.transactionService.getAllTransactions(1, 10).pipe(
+      map((transactionData: TransactionData) => this.dataSource = transactionData)).subscribe();
+  }
+
+  public scrollToTop() {
+    this.content.scrollToTop();
   }
 
   public loadData(event) {
@@ -31,7 +44,6 @@ export class TransactionPage implements OnInit{
 
     const items = this.dataSource.items;
     this.transactionService.getAllTransactions(this.page, 10).pipe(map((transactionData: TransactionData) => this.newItems = transactionData)).subscribe();
-
 
     if (this.page === maximumPages) {
       event.target.disabled = true;
