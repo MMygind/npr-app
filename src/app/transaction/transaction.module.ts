@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TransactionPage } from './transaction.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import {TransactionRoutingModule} from './transaction-routing.module';
 
 @NgModule({
@@ -13,7 +12,6 @@ import {TransactionRoutingModule} from './transaction-routing.module';
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     TransactionRoutingModule,
 
   ],

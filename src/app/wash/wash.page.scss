@@ -1,0 +1,31 @@
+.swiper-container {
+  height: 90%;
+  overflow-y: scroll;
+}
+
+.progress-container {
+  height: 10%;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.pages-container {
+  font-size: 5vw;
+}
+
+.center-card {
+  text-align: center;
+}
+
+.button-div {
+  margin-top: 20px;
+}
+
+.payment-button {
+  display: block;
+}
+
