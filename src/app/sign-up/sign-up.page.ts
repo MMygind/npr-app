@@ -13,11 +13,10 @@ export class SignUpPage implements OnInit {
   constructor(public formBuilder: FormBuilder) {
     this.signUpForm = this.formBuilder.group({
       name: ['', [Validators.required,
-        Validators.pattern('^[\w\'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$')]],
+        Validators.pattern(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}/)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(8)]],
-      passwordFirst: ['', [Validators.required, Validators.pattern('^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$')]],
-      passwordSecond: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^[0-9]{8}$/)]],
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}/)]],
     });
   }
 
@@ -28,32 +27,13 @@ export class SignUpPage implements OnInit {
     return this.signUpForm.controls;
   }
 
-  passwordMatchValidator(g: FormGroup) {
-      return g.get('passwordFirst').value === g.get('passwordSecond').value
-        ? null : {mismatch: true};
-    }
-
   submitForm() {
     this.isSubmitted = true;
     if (!this.signUpForm.valid) {
-      console.log('Please provide all the required values!');
       return false;
     } else {
+
       console.log(this.signUpForm.value);
     }
-  }
-
-  checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-    return (group: FormGroup) => {
-      const passwordInput = group.controls[passwordKey];
-      const passwordConfirmationInput = group.controls[passwordConfirmationKey];
-
-      if (passwordInput.value !== passwordConfirmationInput.value) {
-        return passwordConfirmationInput.setErrors({notEquivalent: true});
-      }
-      else {
-        return passwordConfirmationInput.setErrors(null);
-      }
-    };
   }
 }
