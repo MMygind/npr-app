@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, AbstractControl} from '@angular/forms';
+import {CustomerService} from '../shared/services/customer.service';
+import CreateCustomerDto from '../shared/dtos/create-customer.dto';
+import {environment} from '../../environments/environment';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,7 +13,7 @@ export class SignUpPage implements OnInit {
   signUpForm: FormGroup;
   isSubmitted = false;
 
-  constructor(public formBuilder: FormBuilder) {
+  constructor(public formBuilder: FormBuilder, private customerService: CustomerService) {
     this.signUpForm = this.formBuilder.group({
       name: ['', [Validators.required,
         Validators.pattern(/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}/)]],
@@ -32,8 +35,16 @@ export class SignUpPage implements OnInit {
     if (!this.signUpForm.valid) {
       return false;
     } else {
-
-      console.log(this.signUpForm.value);
+      const customer: CreateCustomerDto = {
+        name: this.signUpForm.value.name,
+        email: this.signUpForm.value.email,
+        phoneNumber: this.signUpForm.value.phoneNumber,
+        password: this.signUpForm.value.password,
+        active: true,
+        companyId: environment.companyId,
+      };
+      console.log(customer);
+      return this.customerService.registerNewCustomer(customer);
     }
   }
 }
