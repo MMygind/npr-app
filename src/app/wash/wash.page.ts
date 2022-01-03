@@ -32,7 +32,6 @@ export class WashPage implements OnInit, ViewWillEnter {
     initialSlide: 0,
     speed: 1,
     allowTouchMove: false,
-    autoHeight: true,
   };
 
   locations: LocationModel[];
@@ -43,6 +42,8 @@ export class WashPage implements OnInit, ViewWillEnter {
   waitingForPlateDetection = false;
   noMatchingPlateDetected = false;
   foundLicensePlate: LicensePlate;
+  progress = 1;
+  choiceSlides = 5;
 
   constructor(private locationService: LocationService,
               private washTypeService: WashTypeService,
@@ -70,12 +71,14 @@ export class WashPage implements OnInit, ViewWillEnter {
     this.washTypeService.getLocationWashTypes(this.selectedLocation.id)
       .subscribe((washTypes) => {
         this.washTypes = washTypes;
+        this.progress++;
         this.swiper.swiperRef.slideTo(this.WASHTYPE_SLIDE);
       });
   }
 
   selectWashType(washType: WashType) {
     this.selectedWashType = washType;
+    this.progress++;
     this.swiper.swiperRef.slideTo(this.PAYMENT_METHOD_SLIDE);
   }
 
@@ -86,12 +89,16 @@ export class WashPage implements OnInit, ViewWillEnter {
     this.paymentMethod = undefined;
     this.waitingForPlateDetection = false;
     this.noMatchingPlateDetected = false;
+    this.progress = 1;
     this.swiper.swiperRef.slideTo(this.LOCATION_SLIDE);
     this.initializeFirstSlide();
   }
 
   payWithPlate() {
     this.waitingForPlateDetection = true;
+    if (!this.noMatchingPlateDetected) {
+      this.progress++;
+    }
     this.swiper.swiperRef.slideTo(this.CHECK_PLATE_SLIDE);
     this.transactionService.getMatchingPlateAtLocation(this.selectedLocation.id)
       .subscribe((plate) => {
@@ -99,25 +106,30 @@ export class WashPage implements OnInit, ViewWillEnter {
         if (plate) {
           this.foundLicensePlate = plate;
           this.paymentMethod = `nummerplade ${plate.licensePlate}`;
+          this.progress++;
           this.swiper.swiperRef.slideTo(this.CONFIRMATION_SLIDE);
         } else {
           this.noMatchingPlateDetected = true;
-          this.swiper.updateSwiper({});
         }
     });
   }
 
   payWithoutPlate() {
+    if (!this.noMatchingPlateDetected) {
+      this.progress++;
+    }
     this.swiper.swiperRef.slideTo(this.OTHER_PAYMENT_SLIDE);
   }
 
   payWithCard() {
     this.paymentMethod = 'kort';
+    this.progress++;
     this.swiper.swiperRef.slideTo(this.CONFIRMATION_SLIDE);
   }
 
   payWithMobile() {
     this.paymentMethod = 'mobil';
+    this.progress++;
     this.swiper.swiperRef.slideTo(this.CONFIRMATION_SLIDE);
   }
 
@@ -128,6 +140,7 @@ export class WashPage implements OnInit, ViewWillEnter {
     };
     dto.licensePlate = this.foundLicensePlate ?? undefined;
     this.transactionService.createTransaction(dto).subscribe((transaction) => {
+      this.progress++;
       this.swiper.swiperRef.slideTo(this.END_SLIDE);
     });
   }
