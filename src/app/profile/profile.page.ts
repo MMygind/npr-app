@@ -5,6 +5,8 @@ import {LicensePlate} from '../shared/models/licenseplate.model';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {LicensePlateService} from '../shared/services/licenseplate.service';
 import {SubscriptionService} from '../shared/services/subscription.service';
+import { AuthenticationService } from '../shared/services/authentication.service';
+import { User } from '../shared/models/user';
 
 @Component({
   selector: 'app-tab3',
@@ -33,7 +35,7 @@ export class ProfilePage implements OnInit {
 
   public getCustomerData(): void {
     this.plateList = [];
-    this.customerService.getCustomerById(1).subscribe(customer => {
+    this.customerService.getLoggedInCustomerWithPlates().subscribe(customer => {
       this.loggedInUser = customer;
       this.plateList = JSON.parse(JSON.stringify(customer.licensePlates));
     });

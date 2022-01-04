@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class LicensePlateService {
-  private plateUrl = environment.backendUrl + 'licensePlates';
+  private plateUrl = environment.backendUrl + 'mobile/licensePlates';
 
   constructor(private http: HttpClient) {
   }

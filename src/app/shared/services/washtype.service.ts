@@ -8,11 +8,11 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class WashTypeService {
-  private washTypeUrl = environment.backendUrl + 'washtypes';
+  private washTypeUrl = environment.backendUrl + 'mobile/washtypes';
 
   constructor(private http: HttpClient) {}
 
   getLocationWashTypes(locationID: number): Observable<WashType[]> {
-    return this.http.get<WashType[]>(this.washTypeUrl + `/byLocation/${locationID}`);
+    return this.http.get<WashType[]>(this.washTypeUrl + `/byLocation/${locationID}`, { withCredentials: true});
   }
 }
