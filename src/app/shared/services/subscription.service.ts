@@ -9,12 +9,12 @@ import {Subscription} from '../models/subscription.model';
 })
 
 export class SubscriptionService {
-  private subscriptionUrl = environment.backendUrl + 'subscriptions';
+  private subscriptionUrl = environment.backendUrl + 'mobile/subscriptions';
 
   constructor(private http: HttpClient) {
   }
 
   getSubscription(): Observable<Subscription> {
-    return this.http.get<Subscription>(this.subscriptionUrl);
+    return this.http.get<Subscription>(this.subscriptionUrl, { withCredentials: true});
   }
 }

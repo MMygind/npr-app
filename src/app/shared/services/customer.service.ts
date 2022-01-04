@@ -10,7 +10,7 @@ import {Customer} from '../models/customer.model';
 })
 export class CustomerService {
   private authenticationUrl = environment.backendUrl + 'mobile/authentication';
-  private customerUrl = environment.backendUrl + 'customers';
+  private customerUrl = environment.backendUrl + 'mobile/customers';
 
   constructor(private http: HttpClient) { }
 
@@ -18,11 +18,11 @@ export class CustomerService {
     return this.http.post<CreateCustomerDto>(this.authenticationUrl + '/register', customer);
   }
 
-  getCustomerById(id: number): Observable<Customer> {
-    return this.http.get<Customer>(this.customerUrl + '/1'); //Hard coded ID so far
+  getLoggedInCustomerWithPlates(): Observable<Customer> {
+    return this.http.get<Customer>(this.customerUrl, { withCredentials: true});
   }
 
   updateCustomer(customer: Customer): Observable<Customer> {
-    return this.http.put<Customer>(this.customerUrl, customer);
+    return this.http.put<Customer>(this.customerUrl, customer, { withCredentials: true});
   }
 }

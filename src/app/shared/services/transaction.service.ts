@@ -11,7 +11,7 @@ import {CreateTransactionDto} from "../dtos/create-transaction.dto";
 })
 
 export class TransactionService {
-  private transactionUrl = environment.backendUrl + 'transactions';
+  private transactionUrl = environment.backendUrl + 'mobile/transactions';
 
   constructor(private http: HttpClient) {
   }

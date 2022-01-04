@@ -21,12 +21,12 @@ export class AuthenticationService {
     this.user = this.userSubject.asObservable();
   }
 
-  // used for getting current behavior subject without listening?
+  // used for getting current behavior subject without listening
   public get userValue(): User | null {
     return this.userSubject.value;
   }
 
-  // error handling? 401 on not allowed? what on wrong user/pass?
+  // error handling - 401 on not allowed
   login(email: string, password: string): Observable<User> {
     return this.http.post<User>(`${environment.backendUrl}mobile/authentication/log-in/`, { email, password })
       .pipe(map(user => {
