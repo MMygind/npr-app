@@ -20,12 +20,12 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'registration',
-    loadChildren: () => import('./registration/registration.module').then(m => m.RegistrationPageModule)
-  },
-  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+  },
+  {
+    path: 'sign-up',
+    loadChildren: () => import('./sign-up/sign-up.module').then(m => m.SignUpPageModule)
   }
 
 ];

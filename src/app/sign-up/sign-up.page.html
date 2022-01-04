@@ -1,0 +1,63 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Opret bruger</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form [formGroup]="signUpForm" (ngSubmit)="submitForm()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Navn</ion-label>
+      <ion-input formControlName="name" type="text" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.required">
+      Navn er påkrævet.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.name.errors?.pattern">
+      Navne må ikke indeholde tal eller special tegn.
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+      E-mail er påkrævet.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.email">
+      E-mailen skal være en valid E-mail
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Telefonnr.</ion-label>
+      <ion-input formControlName="phoneNumber" type="number" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phoneNumber.errors?.required">
+      Telefonnr. er påkrævet.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phoneNumber.errors?.pattern">
+      Telefonnr. skal være 8 tegn.
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Kodeord</ion-label>
+      <ion-input formControlName="password" type="password" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+      Kodeord er påkrævet.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.pattern">
+      Kodeordet skal indeholde 8 tegn, mindst et tal og mindst et bogstav.
+    </span>
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Indsend</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+</ion-content>
