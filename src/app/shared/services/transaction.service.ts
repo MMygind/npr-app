@@ -22,14 +22,14 @@ export class TransactionService {
     params = params.append('page', String(page));
     params = params.append('limit', String(size));
 
-    return this.http.get<TransactionData>(this.transactionUrl + '/byUser', {params});
+    return this.http.get<TransactionData>(this.transactionUrl + '/byUser', {params, withCredentials: true});
   }
 
   getMatchingPlateAtLocation(locationID: number): Observable<LicensePlate> {
-    return this.http.get<LicensePlate>(this.transactionUrl + `/checkPlate/${locationID}`);
+    return this.http.get<LicensePlate>(this.transactionUrl + `/checkPlate/${locationID}`, { withCredentials: true});
   }
 
   createTransaction(dto: CreateTransactionDto): Observable<Transaction> {
-    return this.http.post<Transaction>(this.transactionUrl, dto);
+    return this.http.post<Transaction>(this.transactionUrl, dto, { withCredentials: true});
   }
 }
