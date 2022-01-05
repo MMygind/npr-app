@@ -14,10 +14,10 @@ export class LicensePlateService {
   }
 
   getAllLicensePlates(): Observable<LicensePlate[]> {
-    return this.http.get<LicensePlate[]>(this.plateUrl);
+    return this.http.get<LicensePlate[]>(this.plateUrl, { withCredentials: true});
   }
 
   createLicensePlate(licensePlate: LicensePlate): Observable<LicensePlate> {
-    return this.http.post<LicensePlate>(this.plateUrl, licensePlate);
+    return this.http.post<LicensePlate>(this.plateUrl, licensePlate, { withCredentials: true});
   }
 }
