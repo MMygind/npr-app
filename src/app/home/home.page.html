@@ -1,0 +1,36 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Bilvask appen
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="auth-form ion-margin">
+  <ion-card>
+    <div style="display: flex; justify-content: center;">
+      <ion-img class="logo"
+        src="/assets/logo.png">
+      </ion-img>
+    </div>
+    <div class="ion-margin" style="text-align: center;">
+
+      <h4 style="font-weight: bold;">Velkommen til vask & betal</h4>
+      Med appen kan du med få tryk vaske din bil
+    </div>
+
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col align-self-center>
+        <ion-button [routerLink]="['/sign-up']" expand="block" color="primary">Opret bruger</ion-button>
+
+        <span class="divider line one-line">eller</span>
+
+        <ion-button [routerLink]="['/login']" expand="block" color="danger">Log ind</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

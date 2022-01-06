@@ -1,0 +1,73 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Profil
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Navn</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{loggedInUser.name}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Email</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{loggedInUser.email}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Telefon</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{loggedInUser.phoneNumber}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="loggedInUser">
+    <ion-card-header>
+      <ion-card-title>Abonnement</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>{{loggedInUser?.subscription?.name}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="plateList.length > 0">
+    <ion-card-header>
+      <ion-card-title>Nummerplader</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let plate of plateList">
+        <h2>{{plate.licensePlate}}</h2>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <form [formGroup]="plateForm" (ngSubmit)="saveLicensePlate()">
+      <ion-item class="item" lines="full">
+        <ion-label position="floating">Tilføj Ny Nummerplade</ion-label>
+        <ion-input formControlName="licensePlate" type="text" required></ion-input>
+      </ion-item>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.licensePlate.errors?.pattern">
+        Nummerplade skal være i korrekt format, fx 'AB12345'
+      </span>
+      <span class="error ion-padding" *ngIf="isSubmitted && errorControl.licensePlate.errors?.duplicate">
+        Nummerplade eksisterer allerede
+      </span>
+    <ion-button type="submit" color="danger" expand="block">
+      Tilføj
+    </ion-button>
+
+    </form>
+  </ion-card>
+</ion-content>
