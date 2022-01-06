@@ -49,7 +49,6 @@ export class TransactionPage implements OnInit, ViewWillEnter {
       event.target.disabled = true;
     }
     setTimeout(() => {
-      console.log('Done');
 
       [].push.apply(items, this.newItems.items);
       this.dataSource.items = items;

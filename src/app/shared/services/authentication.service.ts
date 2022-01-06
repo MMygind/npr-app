@@ -46,7 +46,6 @@ export class AuthenticationService {
     return this.http.post<User>(`${environment.backendUrl}mobile/authentication/refresh/`, {}, { withCredentials: true })
       .pipe(map((user) => {
         this.userSubject.next(user);
-        console.log('User login by refresh token');
         return user;
       }));
   }
